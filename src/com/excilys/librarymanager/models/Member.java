@@ -37,7 +37,7 @@ public class Member {
 		return last_name;
 	}
 
-	public String getAdress() {
+	public String getAddress() {
 		return address;
 	}
 
@@ -49,7 +49,7 @@ public class Member {
 		return phone;
 	}
 
-	public String getSubscirption() {
+	public String getSubscription() {
 		return subscription.name();
 	}
 }
