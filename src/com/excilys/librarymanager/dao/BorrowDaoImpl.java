@@ -47,7 +47,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("titre"), rs.getString("author"),
+				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
 				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
@@ -72,7 +72,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("titre"), rs.getString("author"),
+				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
 				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
@@ -98,7 +98,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("titre"), rs.getString("author"),
+				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
 				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
@@ -124,7 +124,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("titre"), rs.getString("author"),
+				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
 				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
@@ -147,12 +147,17 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			preparedStatement.setInt(1, id);
 
 			ResultSet rs = preparedStatement.executeQuery();
-			Book book = new Book(rs.getInt("idBook"), rs.getString("titre"), rs.getString("author"),
-					rs.getString("isbn"));
-			Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
-					rs.getString("address"), rs.getString("mail"), rs.getString("phone"), rs.getString("subscription"));
-			return new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-					rs.getDate("endBorrow").toLocalDate());
+			if (rs.next()) {
+				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
+						rs.getString("isbn"));
+				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
+						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
+						rs.getString("subscription"));
+				return new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
+						rs.getDate("endBorrow").toLocalDate());
+			}
+
+			throw new DaoException("Not found");
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -214,8 +219,10 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			PreparedStatement preparedStatement = connection.prepareStatement(CountQuery);
 
 			ResultSet rs = preparedStatement.executeQuery();
-
-			return rs.getInt("count");
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+			return 0;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}

@@ -32,4 +32,20 @@ public class Book {
 	public String getIsbn() {
 		return isbn;
 	}
+
+	public void setId(int _id) {
+		id = _id;
+	}
+
+	public void setTitle(String _title) {
+		title = _title;
+	}
+
+	public void setAuthor(String _author) {
+		author = _author;
+	}
+
+	public void setIsbn(String _isbn) {
+		isbn = _isbn;
+	}
 }

@@ -42,7 +42,7 @@ public class BookDaoImpl implements BookDao, Serializable {
 
 			List<Book> res = new ArrayList<Book>();
 			while (rs.next()) {
-				res.add(new Book(rs.getInt("id"), rs.getString("titre"), rs.getString("author"), rs.getString("isbn")));
+				res.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("isbn")));
 			}
 			return res;
 		} catch (SQLException e) {
@@ -54,12 +54,18 @@ public class BookDaoImpl implements BookDao, Serializable {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 
-			String GetQuery = "SELECT * FROM BOOK WHERE id=?;";
+			String GetQuery = "SELECT * FROM BOOK WHERE id=(?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(GetQuery);
 			preparedStatement.setInt(1, id);
 
 			ResultSet rs = preparedStatement.executeQuery();
-			return new Book(rs.getInt("id"), rs.getString("titre"), rs.getString("author"), rs.getString("isbn"));
+			Book b;
+			if (rs.next()) {
+				b = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("isbn"));
+				return b;
+			}
+
+			throw new DaoException("Not found");
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -115,7 +121,7 @@ public class BookDaoImpl implements BookDao, Serializable {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 
-			String DeleteQuery = "DELETE FROM livre WHERE id = ?;";
+			String DeleteQuery = "DELETE FROM book WHERE id = ?;";
 			PreparedStatement preparedStatement = connection.prepareStatement(DeleteQuery);
 			preparedStatement.setInt(1, id);
 
@@ -137,7 +143,12 @@ public class BookDaoImpl implements BookDao, Serializable {
 
 			ResultSet rs = preparedStatement.executeQuery();
 
-			return rs.getInt("count");
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+
+			return 0;
+
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}

@@ -40,4 +40,24 @@ public class Borrow {
 	public LocalDate getEndBorrow() {
 		return end_borrow;
 	}
+
+	public void setId(int _id) {
+		id = _id;
+	}
+
+	public void setMember(Member _member) {
+		member = _member;
+	}
+
+	public void setBook(Book _book) {
+		book = _book;
+	}
+
+	public void setStartBorrow(LocalDate _start_borrow) {
+		start_borrow = _start_borrow;
+	}
+
+	public void setEndBorrow(LocalDate _end_borrow) {
+		end_borrow = _end_borrow;
+	}
 }

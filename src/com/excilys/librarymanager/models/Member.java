@@ -52,4 +52,32 @@ public class Member {
 	public String getSubscription() {
 		return subscription.name();
 	}
+
+	public void setId(int _id) {
+		id = _id;
+	}
+
+	public void setFirstName(String _first_name) {
+		first_name = _first_name;
+	}
+
+	public void setLastName(String _last_name) {
+		last_name = _last_name;
+	}
+
+	public void setAddress(String _address) {
+		address = _address;
+	}
+
+	public void setMail(String _mail) {
+		mail = _mail;
+	}
+
+	public void setPhone(String _phone) {
+		phone = _phone;
+	}
+
+	public void setSubscription(String _subscription) {
+		subscription = Subscription.valueOf(_subscription);
+	}
 }

@@ -29,11 +29,11 @@ public class FillDatabase {
 
 		List<String> createTablesQueries = new ArrayList<>();
 		createTablesQueries.add(
-				"CREATE TABLE IF NOT EXISTS livre(id INT primary key auto_increment, title VARCHAR(100), author VARCHAR(100), isbn VARCHAR(20))");
+				"CREATE TABLE IF NOT EXISTS book(id INT primary key auto_increment, title VARCHAR(100), author VARCHAR(100), isbn VARCHAR(20))");
 		createTablesQueries.add(
-				"CREATE TABLE IF NOT EXISTS membre(id INT primary key auto_increment, lastName VARCHAR(100), firstName VARCHAR(100), address TEXT, mail VARCHAR(100), phone VARCHAR(30), subscription ENUM('BASIC', 'PREMIUM', 'VIP') DEFAULT 'BASIC')");
+				"CREATE TABLE IF NOT EXISTS member(id INT primary key auto_increment, lastName VARCHAR(100), firstName VARCHAR(100), address TEXT, mail VARCHAR(100), phone VARCHAR(30), subscription ENUM('BASIC', 'PREMIUM', 'VIP') DEFAULT 'BASIC')");
 		createTablesQueries.add(
-				"CREATE TABLE IF NOT EXISTS emprunt(id INT primary key auto_increment, idMember INT, idBook INT, startBorrow DATETIME, endBorrow DATETIME)");
+				"CREATE TABLE IF NOT EXISTS borrow(id INT primary key auto_increment, idMember INT, idBook INT, startBorrow DATETIME, endBorrow DATETIME)");
 
 		try {
 			connection.setAutoCommit(false);

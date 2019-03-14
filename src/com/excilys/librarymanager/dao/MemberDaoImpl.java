@@ -61,8 +61,15 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			preparedStatement.setInt(1, id);
 
 			ResultSet rs = preparedStatement.executeQuery();
-			return new Member(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"),
-					rs.getString("address"), rs.getString("mail"), rs.getString("phone"), rs.getString("subscription"));
+
+			if (rs.next()) {
+				return new Member(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"),
+						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
+						rs.getString("subscription"));
+			}
+
+			throw new DaoException("Not found");
+
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -147,7 +154,11 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 
 			ResultSet rs = preparedStatement.executeQuery();
 
-			return rs.getInt("count");
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+
+			return 0;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}
