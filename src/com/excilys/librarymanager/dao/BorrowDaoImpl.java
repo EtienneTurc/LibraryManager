@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -112,7 +111,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 		}
 	}
 
-	public List<Borrow> getListCurrentByLivre(int idBook) throws DaoException {
+	public List<Borrow> getListCurrentByBook(int idBook) throws DaoException {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 

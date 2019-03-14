@@ -53,6 +53,10 @@ public class Member {
 		return subscription.name();
 	}
 
+	public int getSubscriptionValue() {
+		return subscription.value();
+	}
+
 	public void setId(int _id) {
 		id = _id;
 	}

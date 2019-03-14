@@ -13,7 +13,7 @@ public interface BorrowDao {
 
 	public List<Borrow> getListCurrentByMember(int idMember) throws DaoException;
 
-	public List<Borrow> getListCurrentByLivre(int idBook) throws DaoException;
+	public List<Borrow> getListCurrentByBook(int idBook) throws DaoException;
 
 	public Borrow getById(int id) throws DaoException;
 
