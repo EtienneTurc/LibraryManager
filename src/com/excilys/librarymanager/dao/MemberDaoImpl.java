@@ -42,7 +42,7 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 
 			List<Member> res = new ArrayList<Member>();
 			while (rs.next()) {
-				res.add(new Member(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"),
+				res.add(new Member(rs.getInt("id"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription")));
 			}
@@ -63,7 +63,7 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				return new Member(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"),
+				return new Member(rs.getInt("id"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
 			}

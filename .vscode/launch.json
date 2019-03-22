@@ -2,9 +2,9 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "CodeLens (Launch) - DaoTest",
+			"name": "CodeLens (Launch) - BookTest",
 			"request": "launch",
-			"mainClass": "com.excilys.librarymanager.test.DaoTest",
+			"mainClass": "com.excilys.librarymanager.test.services.BookTest",
 			"projectName": "ProjetEnsta"
 		}
 	]

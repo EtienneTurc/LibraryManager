@@ -146,7 +146,6 @@ public class BookDaoImpl implements BookDao, Serializable {
 			if (rs.next()) {
 				return rs.getInt("count");
 			}
-
 			return 0;
 
 		} catch (SQLException e) {

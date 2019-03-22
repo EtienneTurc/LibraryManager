@@ -14,6 +14,9 @@ import java.sql.SQLException;
 
 import com.excilys.librarymanager.exception.DaoException;
 import com.excilys.librarymanager.persistence.ConnectionManager;
+
+import org.h2.mvstore.rtree.SpatialDataType;
+
 import com.excilys.librarymanager.models.Borrow;
 import com.excilys.librarymanager.models.Member;
 import com.excilys.librarymanager.models.Book;
@@ -39,7 +42,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 
-			String GetAllQuery = "SELECT e.id AS id, idMembrer, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM Borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook ORDER BY endBorrow DESC;";
+			String GetAllQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM Borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook ORDER BY endBorrow DESC;";
 			PreparedStatement preparedStatement = connection.prepareStatement(GetAllQuery);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -51,8 +54,13 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
-				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-						rs.getDate("endBorrow").toLocalDate()));
+
+				LocalDate end_borrow = null;
+				if (rs.getDate("endBorrow") != null) {
+					end_borrow = rs.getDate("endBorrow").toLocalDate();
+				}
+
+				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(), end_borrow));
 			}
 			return res;
 		} catch (SQLException e) {
@@ -73,11 +81,16 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			while (rs.next()) {
 				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
-				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
+				Member member = new Member(rs.getInt("idMember"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
-				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-						rs.getDate("endBorrow").toLocalDate()));
+
+				LocalDate end_borrow = null;
+				if (rs.getDate("endBorrow") != null) {
+					end_borrow = rs.getDate("endBorrow").toLocalDate();
+				}
+
+				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(), end_borrow));
 			}
 			return res;
 		} catch (SQLException e) {
@@ -99,11 +112,16 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			while (rs.next()) {
 				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
-				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
+				Member member = new Member(rs.getInt("idMember"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
-				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-						rs.getDate("endBorrow").toLocalDate()));
+
+				LocalDate end_borrow = null;
+				if (rs.getDate("endBorrow") != null) {
+					end_borrow = rs.getDate("endBorrow").toLocalDate();
+				}
+
+				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(), end_borrow));
 			}
 			return res;
 		} catch (SQLException e) {
@@ -125,11 +143,16 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			while (rs.next()) {
 				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
-				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
+				Member member = new Member(rs.getInt("idMember"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
-				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-						rs.getDate("endBorrow").toLocalDate()));
+
+				LocalDate end_borrow = null;
+				if (rs.getDate("endBorrow") != null) {
+					end_borrow = rs.getDate("endBorrow").toLocalDate();
+				}
+
+				res.add(new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(), end_borrow));
 			}
 			return res;
 		} catch (SQLException e) {
@@ -149,11 +172,15 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			if (rs.next()) {
 				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
-				Member member = new Member(rs.getInt("idMember"), rs.getString("firstName"), rs.getString("lastName"),
+				Member member = new Member(rs.getInt("idMember"), rs.getString("lastName"), rs.getString("firstName"),
 						rs.getString("address"), rs.getString("mail"), rs.getString("phone"),
 						rs.getString("subscription"));
-				return new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(),
-						rs.getDate("endBorrow").toLocalDate());
+				LocalDate end_borrow = null;
+				if (rs.getDate("endBorrow") != null) {
+					end_borrow = rs.getDate("endBorrow").toLocalDate();
+				}
+
+				return new Borrow(rs.getInt("id"), member, book, rs.getDate("startBorrow").toLocalDate(), end_borrow);
 			}
 
 			throw new DaoException("Not found");
@@ -218,9 +245,11 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			PreparedStatement preparedStatement = connection.prepareStatement(CountQuery);
 
 			ResultSet rs = preparedStatement.executeQuery();
+
 			if (rs.next()) {
 				return rs.getInt("count");
 			}
+
 			return 0;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
