@@ -1,6 +1,7 @@
 package com.excilys.librarymanager.services;
 
 import java.util.List;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.excilys.librarymanager.exception.DaoException;
@@ -18,7 +19,8 @@ import com.excilys.librarymanager.dao.BookDaoImpl;
 /**
  * BorrowServiceImpl
  */
-public class BorrowServiceImpl implements BorrowService {
+public class BorrowServiceImpl implements BorrowService, Serializable {
+	private static final long serialVersionUID = 4565601273675135806L;
 	private static BorrowServiceImpl instance;
 
 	private BorrowServiceImpl() {

@@ -21,51 +21,44 @@
 			<div class="page-announce valign-wrapper">
 				<a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i
 						class="material-icons">menu</i></a>
-				<h1 class="page-announce-text valign">Fiche membre</h1>
+				<h1 class="page-announce-text valign">Retour d'un livre</h1>
 			</div>
 			<div class="row">
 				<div class="container">
-					<h5>Création d'un nouveau membre</h5>
+					<h5>Sélectionnez le livre à retourner</h5>
 					<div class="row">
-						<form action="/LibraryManager/membre_add" method="post" class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
-									<input id="nom" type="text" name="nom">
-									<label for="nom">Nom</label>
-								</div>
-								<div class="input-field col s6">
-									<input id="prenom" type="text" name="prenom">
-									<label for="prenom">Prénom</label>
-								</div>
-							</div>
+						<form action="borrow_return" method="post" class="col s12">
 							<div class="row">
 								<div class="input-field col s12">
-									<input id="adresse" type="text" name="adresse">
-									<label for="adresse">Adresse</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s6">
-									<input id="email" type="email" name="email">
-									<label for="email">E-mail</label>
-								</div>
-								<div class="input-field col s6">
-									<input id="telephone" type="tel" name="telephone">
-									<label for="telephone">Téléphone</label>
+									<select id="idBorrow" name="idBorrow" class="browser-default">
+										<option value="" disabled selected>---</option>
+										<c:forEach items="${borrows}" var="item">
+											<option value="${item.getId()}">
+												<c:out value="${item.getBook().getTitle()}" />, <i>
+													<c:out value="${item.getMember().getFirstName()}" />
+													<c:out value="${item.getMember().getLastName()}" /></i></option>
+										</c:forEach>
+										<!-- TODO : si l'attribut id existe, l'option correspondante devra �tre s�lectionn�e par d�faut (ajouter l'attribut selected dans la balise <option>) -->
+									</select>
 								</div>
 							</div>
 							<div class="row center">
-								<button class="btn waves-effect waves-light" type="submit">Enregistrer</button>
+								<button class="btn waves-effect waves-light" type="submit">Retourner le livre</button>
 								<button class="btn waves-effect waves-light orange" type="reset">Annuler</button>
 							</div>
 						</form>
 					</div>
-
 				</div>
 			</div>
 		</section>
 	</main>
 	<jsp:include page='footer.jsp'></jsp:include>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var elems = document.querySelectorAll('select');
+			var instances = M.FormSelect.init(elems, {});
+		});
+	</script>
 </body>
 
 </html>

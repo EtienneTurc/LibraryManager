@@ -6,12 +6,13 @@ import javax.servlet.*;
 import com.excilys.librarymanager.services.BookServiceImpl;
 import com.excilys.librarymanager.services.MemberServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
-import com.excilys.librarymanager.models.Borrow;
 
 /**
  * DashboardServlet
  */
 public class DashboardServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1924560675656000322L;
 
 	public DashboardServlet() {
 	}

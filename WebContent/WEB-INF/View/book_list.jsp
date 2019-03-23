@@ -1,11 +1,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<title>Library Management</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
@@ -22,12 +21,40 @@
 			<div class="page-announce valign-wrapper">
 				<a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i
 						class="material-icons">menu</i></a>
-				<h1 class="page-announce-text valign">Erreur 500</h1>
+				<h1 class="page-announce-text valign">Liste des livres</h1>
 			</div>
 			<div class="row">
-				<div class="container">
-					<h3>Message :</h3>
-					<p><%= exception.getLocalizedMessage() %></p>
+				<div class="col s12">
+					<table class="striped no-padding">
+						<thead>
+							<tr>
+								<th>Titre</th>
+								<th>Auteur</th>
+								<th>Code ISBN 13</th>
+								<th>Détails</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${books}" var="item">
+								<tr>
+									<td>
+										<c:out value="${item.getTitle()}" />
+									</td>
+									<td>
+										<c:out value="${item.getAuthor()}" />
+									<td>
+										<c:out value="${item.getIsbn()}" />
+									</td>
+									<td class="center">
+										<a href="book_details?id=${item.getId()}">
+											<ion-icon class="details" name="information-circle-outline"></ion-icon>
+										</a>
+									</td>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</section>

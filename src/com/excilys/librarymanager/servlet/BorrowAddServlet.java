@@ -9,12 +9,13 @@ import javax.servlet.*;
 import com.excilys.librarymanager.services.BookServiceImpl;
 import com.excilys.librarymanager.services.MemberServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
-import com.excilys.librarymanager.models.Borrow;
 
 /**
  * BorrowAddServlet
  */
 public class BorrowAddServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -3252883765495188655L;
 
 	public BorrowAddServlet() {
 	}
@@ -40,7 +41,7 @@ public class BorrowAddServlet extends HttpServlet {
 			String id_book = request.getParameter("idBook");
 			String id_member = request.getParameter("idMember");
 			borrow_service.create(Integer.parseInt(id_member), Integer.parseInt(id_book), LocalDate.now());
-			response.sendRedirect("dashboard");
+			response.sendRedirect("borrow_list");
 
 		} catch (Exception e) {
 			System.out.println(e);

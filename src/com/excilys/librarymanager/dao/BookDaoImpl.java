@@ -19,6 +19,7 @@ import com.excilys.librarymanager.models.Book;
  */
 public class BookDaoImpl implements BookDao, Serializable {
 
+	private static final long serialVersionUID = 3792939001092042951L;
 	private static BookDaoImpl instance;
 
 	private BookDaoImpl() {

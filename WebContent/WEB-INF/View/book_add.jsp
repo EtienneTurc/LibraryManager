@@ -1,6 +1,5 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,12 +21,36 @@
 			<div class="page-announce valign-wrapper">
 				<a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i
 						class="material-icons">menu</i></a>
-				<h1 class="page-announce-text valign">Erreur 500</h1>
+				<h1 class="page-announce-text valign">Fiche livre</h1>
 			</div>
 			<div class="row">
 				<div class="container">
-					<h3>Message :</h3>
-					<p><%= exception.getLocalizedMessage() %></p>
+					<h5>Création d'un nouveau livre</h5>
+					<div class="row">
+						<form action="book_add" method="post" class="col s12">
+							<div class="row">
+								<div class="input-field col m12 s12">
+									<input id="title" type="text" name="title">
+									<label for="title">Titre</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6">
+									<input id="author" type="text" name="author">
+									<label for="author">Auteur</label>
+								</div>
+								<div class="input-field col s6">
+									<input id="isbn" type="text" name="isbn">
+									<label for="isbn">ISBN 13</label>
+								</div>
+							</div>
+							<div class="row center">
+								<button class="btn waves-effect waves-light" type="submit">Enregistrer</button>
+								<button class="btn waves-effect waves-light orange" type="reset">Annuler</button>
+							</div>
+						</form>
+					</div>
+
 				</div>
 			</div>
 		</section>

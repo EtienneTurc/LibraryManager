@@ -1,6 +1,7 @@
 package com.excilys.librarymanager.services;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.excilys.librarymanager.exception.DaoException;
@@ -15,8 +16,9 @@ import com.excilys.librarymanager.services.BorrowServiceImpl;;
 /**
  * BookServiceImpl
  */
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService, Serializable {
 
+	private static final long serialVersionUID = -5034286095354369656L;
 	private static BookServiceImpl instance;
 
 	private BookServiceImpl() {

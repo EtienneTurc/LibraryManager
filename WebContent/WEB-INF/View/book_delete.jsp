@@ -1,6 +1,5 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,12 +21,30 @@
 			<div class="page-announce valign-wrapper">
 				<a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i
 						class="material-icons">menu</i></a>
-				<h1 class="page-announce-text valign">Erreur 500</h1>
+				<h1 class="page-announce-text valign">Fiche livre</h1>
 			</div>
 			<div class="row">
 				<div class="container">
-					<h3>Message :</h3>
-					<p><%= exception.getLocalizedMessage() %></p>
+					<h5>Suppression du livre n°
+						<c:out value="${book.getId()}" />
+					</h5>
+					<div class="row">
+						<p>Êtes-vous sûr de vouloir supprimer le livre
+							<c:out value="${book.getTitle()}" /> de
+							<c:out value="${book.getAuthor()}" /> (code
+							<c:out value="${book.getIsbn()}" />) ?
+						</p>
+						<form action="book_delete" method="post" class="col s12">
+							<input type="hidden" value="${book.getId()}" name="id">
+							<div class="row center">
+								<button class="btn waves-effect waves-light red" type="submit">Supprimer
+									<i class="material-icons right">delete</i>
+								</button>
+								<a class="btn waves-effect waves-light orange"
+									href="book_details?id=${book.getId()}">Annuler</a>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</section>

@@ -1,4 +1,5 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -32,7 +33,7 @@
 						<div class="icon">
 							<ion-icon name="people"></ion-icon>
 						</div>
-						<a href="membre_list" class="small-box-footer" class="animsition-link">Liste des membres <i
+						<a href="member_list" class="small-box-footer" class="animsition-link">Liste des membres <i
 								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
@@ -45,7 +46,7 @@
 						<div class="icon">
 							<ion-icon name="book"></ion-icon>
 						</div>
-						<a href="livre_list" class="small-box-footer" class="animsition-link">Liste des livres <i
+						<a href="book_list" class="small-box-footer" class="animsition-link">Liste des livres <i
 								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
@@ -58,7 +59,7 @@
 						<div class="icon">
 							<ion-icon name="bookmarks"></ion-icon>
 						</div>
-						<a href="emprunt_list" class="small-box-footer" class="animsition-link">Liste des emprunts <i
+						<a href="borrow_list" class="small-box-footer" class="animsition-link">Liste des emprunts <i
 								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
@@ -89,7 +90,7 @@
 											<c:out value="${item.getStartBorrow()}" />
 										</td>
 										<td>
-											<a href="emprunt_return?id=${item.getId()}">
+											<a href="borrow_return?id=${item.getId()}">
 												<ion-icon class="table-item" name="log-in">
 											</a>
 										</td>

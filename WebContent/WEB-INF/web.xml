@@ -5,41 +5,77 @@
 	<error-code>500</error-code>
 	<location>/WEB-INF/View/error_500.jsp</location>
 </error-page>
+<filter>
+	<filter-name>Filter</filter-name>
+	<filter-class>com.excilys.librarymanager.servlet.FilterServlet</filter-class>
+	<init-param>
+		<param-name>requestEncoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+</filter>
 <servlet>
-	<!-- Le nom de votre Servlet -->
 	<servlet-name>Dashboard</servlet-name>
-	<!-- le chemin de votre Servlet dans votre application -->
 	<servlet-class>com.excilys.librarymanager.servlet.DashboardServlet</servlet-class>
 </servlet>
 <servlet>
-	<!-- Le nom de votre Servlet -->
 	<servlet-name>BorrowAdd</servlet-name>
-	<!-- le chemin de votre Servlet dans votre application -->
 	<servlet-class>com.excilys.librarymanager.servlet.BorrowAddServlet</servlet-class>
 </servlet>
 <servlet>
-	<!-- Le nom de votre Servlet -->
 	<servlet-name>BorrowList</servlet-name>
-	<!-- le chemin de votre Servlet dans votre application -->
 	<servlet-class>com.excilys.librarymanager.servlet.BorrowListServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>BorrowReturn</servlet-name>
+	<servlet-class>com.excilys.librarymanager.servlet.BorrowReturnServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>BookAdd</servlet-name>
+	<servlet-class>com.excilys.librarymanager.servlet.BookAddServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>BookDelete</servlet-name>
+	<servlet-class>com.excilys.librarymanager.servlet.BookDeleteServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>BookDetails</servlet-name>
+	<servlet-class>com.excilys.librarymanager.servlet.BookDetailsServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>BookList</servlet-name>
+	<servlet-class>com.excilys.librarymanager.servlet.BookListServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-	<!-- Référence au nom de la Servlet  -->
 	<servlet-name>Dashboard</servlet-name>
-	<!-- URL à partir de laquelle votre Servlet sera accessible -->
 	<url-pattern>/dashboard</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
-	<!-- Référence au nom de la Servlet  -->
 	<servlet-name>BorrowAdd</servlet-name>
-	<!-- URL à partir de laquelle votre Servlet sera accessible -->
 	<url-pattern>/borrow_add</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
-	<!-- Référence au nom de la Servlet  -->
 	<servlet-name>BorrowList</servlet-name>
-	<!-- URL à partir de laquelle votre Servlet sera accessible -->
 	<url-pattern>/borrow_list</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BorrowReturn</servlet-name>
+	<url-pattern>/borrow_return</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BookAdd</servlet-name>
+	<url-pattern>/book_add</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BookDelete</servlet-name>
+	<url-pattern>/book_delete</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BookDetails</servlet-name>
+	<url-pattern>/book_details</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BookList</servlet-name>
+	<url-pattern>/book_list</url-pattern>
 </servlet-mapping>
 </web-app>

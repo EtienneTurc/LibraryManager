@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import com.excilys.librarymanager.exception.DaoException;
 import com.excilys.librarymanager.persistence.ConnectionManager;
 
-import org.h2.mvstore.rtree.SpatialDataType;
-
 import com.excilys.librarymanager.models.Borrow;
 import com.excilys.librarymanager.models.Member;
 import com.excilys.librarymanager.models.Book;
@@ -220,7 +218,7 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 
-			String UpdateQuery = "UPDATE Borrow SET idMember = ?, idBook = ?, startBorrow = ?, endBorrow = ?, WHERE id = ?;";
+			String UpdateQuery = "UPDATE Borrow SET idMember = ?, idBook = ?, startBorrow = ?, endBorrow = ? WHERE id = ?;";
 			PreparedStatement preparedStatement = connection.prepareStatement(UpdateQuery);
 			preparedStatement.setInt(1, borrow.getMember().getId());
 			preparedStatement.setInt(2, borrow.getBook().getId());

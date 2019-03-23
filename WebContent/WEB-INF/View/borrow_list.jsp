@@ -1,4 +1,5 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -63,7 +64,7 @@
 								</c:forEach>
 								<!-- <tr>
 									<td>Titre du livre, <em>de Nom de l'auteur</em></td>
-									<td>Pr�nom et nom du membre emprunteur</td>
+									<td>Prénom et nom du membre emprunteur</td>
 									<td>Date de l'emprunt</td>
 									<td>
 										<a href="emprunt_return?id=idDeLEmprunt">

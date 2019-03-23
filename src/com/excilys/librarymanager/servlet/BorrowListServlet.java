@@ -11,6 +11,8 @@ import com.excilys.librarymanager.services.BorrowServiceImpl;
  */
 public class BorrowListServlet extends HttpServlet {
 
+	private static final long serialVersionUID = -6742102547561214435L;
+
 	public BorrowListServlet() {
 	}
 
@@ -22,7 +24,7 @@ public class BorrowListServlet extends HttpServlet {
 
 			String show = request.getParameter("show");
 
-			if (show == "all") {
+			if (show.equals("all")) {
 				request.setAttribute("borrows", borrow_service.getAll());
 			} else {
 				request.setAttribute("borrows", borrow_service.getListCurrent());

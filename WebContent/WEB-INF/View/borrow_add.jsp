@@ -1,4 +1,5 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -24,7 +25,7 @@
 			</div>
 			<div class="row">
 				<div class="container">
-					<h5>S�lectionnez le livre et le membre emprunteur</h5>
+					<h5>Sélectionnez le livre et le membre emprunteur</h5>
 					<div class="row">
 						<form action="borrow_add" method="post" class="col s12">
 							<div class="row">

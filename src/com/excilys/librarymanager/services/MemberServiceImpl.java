@@ -1,6 +1,7 @@
 package com.excilys.librarymanager.services;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.excilys.librarymanager.exception.DaoException;
@@ -13,8 +14,9 @@ import com.excilys.librarymanager.dao.MemberDaoImpl;
 /**
  * BookServiceImpl
  */
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService, Serializable {
 
+	private static final long serialVersionUID = -5805806721285509004L;
 	private static MemberServiceImpl instance;
 
 	private MemberServiceImpl() {
