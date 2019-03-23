@@ -24,7 +24,7 @@ public class BorrowListServlet extends HttpServlet {
 
 			String show = request.getParameter("show");
 
-			if (show.equals("all")) {
+			if (show != null && show.equals("all")) {
 				request.setAttribute("borrows", borrow_service.getAll());
 			} else {
 				request.setAttribute("borrows", borrow_service.getListCurrent());

@@ -51,7 +51,7 @@
 										</td>
 										<td>
 											<c:if test="${item.getEndBorrow()== null}">
-												<a href="emprunt_return?id=${item.getId()}">
+												<a href="borrow_return?id=${item.getId()}">
 													<ion-icon class="table-item" name="log-in">
 												</a>
 											</c:if>
@@ -62,17 +62,6 @@
 										</td>
 									</tr>
 								</c:forEach>
-								<!-- <tr>
-									<td>Titre du livre, <em>de Nom de l'auteur</em></td>
-									<td>Prénom et nom du membre emprunteur</td>
-									<td>Date de l'emprunt</td>
-									<td>
-										<a href="emprunt_return?id=idDeLEmprunt">
-											<ion-icon class="table-item" name="log-in">
-										</a>
-									</td>
-								</tr> -->
-
 							</tbody>
 						</table>
 					</div>

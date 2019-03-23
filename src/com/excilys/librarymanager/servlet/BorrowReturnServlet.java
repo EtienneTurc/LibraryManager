@@ -22,6 +22,7 @@ public class BorrowReturnServlet extends HttpServlet {
 
 			BorrowServiceImpl borrow_service = BorrowServiceImpl.getInstance();
 
+			request.setAttribute("id", request.getParameter("id"));
 			request.setAttribute("borrows", borrow_service.getListCurrent());
 
 			dispatcher.forward(request, response);

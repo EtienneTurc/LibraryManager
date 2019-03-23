@@ -27,6 +27,8 @@ public class BookAddServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		try {
+			request.setCharacterEncoding("UTF-8");
+
 			BookServiceImpl book_service = BookServiceImpl.getInstance();
 			String title = request.getParameter("title");
 			String author = request.getParameter("author");

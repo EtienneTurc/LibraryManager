@@ -31,14 +31,13 @@
 							<div class="row">
 								<div class="input-field col s12">
 									<select id="idBorrow" name="idBorrow" class="browser-default">
-										<option value="" disabled selected>---</option>
+										<option value="" disabled>---</option>
 										<c:forEach items="${borrows}" var="item">
-											<option value="${item.getId()}">
+											<option value="${item.getId()}" ${(item.getId()==id) ? "selected" : "" }>
 												<c:out value="${item.getBook().getTitle()}" />, <i>
 													<c:out value="${item.getMember().getFirstName()}" />
 													<c:out value="${item.getMember().getLastName()}" /></i></option>
 										</c:forEach>
-										<!-- TODO : si l'attribut id existe, l'option correspondante devra �tre s�lectionn�e par d�faut (ajouter l'attribut selected dans la balise <option>) -->
 									</select>
 								</div>
 							</div>

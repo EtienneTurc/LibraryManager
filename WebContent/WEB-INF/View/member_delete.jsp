@@ -25,42 +25,24 @@
 			</div>
 			<div class="row">
 				<div class="container">
-					<h5>Création d'un nouveau membre</h5>
+					<h5>Suppression du membre n°
+						<c:out value="${member.getId()}" />
+					</h5>
 					<div class="row">
-						<form action="/LibraryManager/membre_add" method="post" class="col s12">
-							<div class="row">
-								<div class="input-field col s6">
-									<input id="nom" type="text" name="nom">
-									<label for="nom">Nom</label>
-								</div>
-								<div class="input-field col s6">
-									<input id="prenom" type="text" name="prenom">
-									<label for="prenom">Prénom</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s12">
-									<input id="adresse" type="text" name="adresse">
-									<label for="adresse">Adresse</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s6">
-									<input id="email" type="email" name="email">
-									<label for="email">E-mail</label>
-								</div>
-								<div class="input-field col s6">
-									<input id="telephone" type="tel" name="telephone">
-									<label for="telephone">Téléphone</label>
-								</div>
-							</div>
+						<p>Êtes-vous sûr de vouloir supprimer la fiche de
+							<c:out value="${member.getFirstName()}" />
+							<c:out value="${member.getLastName()}" /> ?</p>
+						<form action="member_delete" method="post" class="col s12">
+							<input type="hidden" value="${member.getId()}" name="id">
 							<div class="row center">
-								<button class="btn waves-effect waves-light" type="submit">Enregistrer</button>
-								<button class="btn waves-effect waves-light orange" type="reset">Annuler</button>
+								<button class="btn waves-effect waves-light red" type="submit" name="action">Supprimer
+									<i class="material-icons right">delete</i>
+								</button>
+								<a class="btn waves-effect waves-light orange"
+									href="member_details?id=${member.getId()}">Annuler</a>
 							</div>
 						</form>
 					</div>
-
 				</div>
 			</div>
 		</section>

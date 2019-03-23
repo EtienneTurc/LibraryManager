@@ -70,6 +70,7 @@ public class MemberServiceImpl implements MemberService, Serializable {
 			if (last_name == "" || first_name == "") {
 				throw new ServiceException("Empty name");
 			}
+			last_name = last_name.toUpperCase();
 			MemberDaoImpl member_dao = MemberDaoImpl.getInstance();
 			return member_dao.create(last_name, first_name, address, mail, phone);
 		} catch (DaoException e) {
@@ -82,6 +83,7 @@ public class MemberServiceImpl implements MemberService, Serializable {
 			if (member.getLastName() == "" || member.getFirstName() == "") {
 				throw new ServiceException("Empty name");
 			}
+			member.setLastName(member.getLastName().toUpperCase());
 			MemberDaoImpl member_dao = MemberDaoImpl.getInstance();
 			member_dao.update(member);
 		} catch (DaoException e) {

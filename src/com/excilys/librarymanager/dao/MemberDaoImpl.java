@@ -19,6 +19,7 @@ import com.excilys.librarymanager.models.Member;
  */
 public class MemberDaoImpl implements MemberDao, Serializable {
 
+	private static final long serialVersionUID = -1235259573546322588L;
 	private static MemberDaoImpl instance;
 
 	private MemberDaoImpl() {

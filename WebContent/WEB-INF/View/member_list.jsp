@@ -37,19 +37,30 @@
 							</tr>
 						</thead>
 						<tbody>
-
-							<tr>
-								<td>Nom du membre</td>
-								<td>Prénom du membre</td>
-								<td class="hide-on-small-only">Adresse du membre</td>
-								<td class="hide-on-small-only">E-mail du membre</td>
-								<td class="hide-on-small-only">Téléphone du membre</td>
-								<td class="center"><a href="membre_details?id=idDuMembre">
-										<ion-icon class="details" name="information-circle-outline"></ion-icon>
-									</a></td>
-							</tr>
-
-							<!-- TODO : parcourir la liste des membres et les afficher selon la structure d'exemple ci-dessus -->
+							<c:forEach items="${members}" var="item">
+								<tr>
+									<td>
+										<c:out value="${item.getLastName()}" />
+									</td>
+									<td>
+										<c:out value="${item.getFirstName()}" />
+									<td class="hide-on-small-only">
+										<c:out value="${item.getAddress()}" />
+									</td>
+									<td class="hide-on-small-only">
+										<c:out value="${item.getMail()}" />
+									</td>
+									<td class="hide-on-small-only">
+										<c:out value="${item.getPhone()}" />
+									</td>
+									<td class="center">
+										<a href="member_details?id=${item.getId()}">
+											<ion-icon class="details" name="information-circle-outline"></ion-icon>
+										</a>
+									</td>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

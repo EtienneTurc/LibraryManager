@@ -25,51 +25,50 @@
 			</div>
 			<div class="row">
 				<div class="container">
-					<h5>Détails du membre n°007</h5> <!-- TODO : remplacer 007 par l'id du membre -->
+					<h5>Détails du membre n°
+						<c:out value="${member.getId()}" />
+					</h5>
 					<div class="row">
-						<form action="/LibraryManager/membre_details?id=idDuMembre" method="post" class="col s12">
-							<!-- TODO : remplacer idDuMembre par l'id du membre -->
+						<form action="member_details?id=${member.getId()}" method="post" class="col s12">
 							<div class="row">
 								<div class="input-field col s4">
-									<input id="nom" type="text" value="nomDuMembre" name="nom">
-									<!-- TODO : remplacer nomDuMembre par le nom du membre -->
-									<label for="nom">Nom</label>
+									<input id="last_name" type="text" value="${member.getLastName()}" name="last_name">
+									<label for="last_name">Nom</label>
 								</div>
 								<div class="input-field col s4">
-									<input id="prenom" type="text" value="prenomDuMembre" name="prenom">
-									<!-- TODO : remplacer prenomDuMembre par le pr�nom du membre -->
-									<label for="prenom">Prénom</label>
+									<input id="first_name" type="text" value="${member.getFirstName()}"
+										name="first_name">
+									<label for="first_name">Prénom</label>
 								</div>
 								<div class="input-field col s4">
-									<select name="abonnement" class="browser-default">
+									<select name="subs" class="browser-default">
 										<!-- TODO : faire en sorte que l'option correspondant � l'abonnement du membre soit s�lectionn�e par d�faut -->
 										<!-- Pour cela, vous devez rajouter l'attribut selecter sur la balise <option> concern�e -->
-										<option value="BASIC" ${(membre.abonnement=="BASIC" ) ? " selected" : "" }>
+										<option value="BASIC" ${(member.getSubscription()=="BASIC" ) ? "selected" : ""
+											}>
 											Abonnement BASIC</option>
-										<option value="PREMIUM" ${(membre.abonnement=="PREMIUM" ) ? " selected" : "" }>
+										<option value="PREMIUM" ${(member.getSubscription()=="PREMIUM" ) ? "selected"
+											: "" }>
 											Abonnement PREMIUM</option>
-										<option value="VIP" ${(membre.abonnement=="VIP" ) ? " selected" : "" }>
+										<option value="VIP" ${(member.getSubscription()=="VIP" ) ? "selected" : "" }>
 											Abonnement VIP</option>
 									</select>
 								</div>
 							</div>
 							<div class="row">
 								<div class="input-field col s12">
-									<input id="adresse" type="text" value="adresseDuMembre" name="adresse">
-									<!-- TODO : remplacer adresseDuMembre par l'adresse du membre -->
-									<label for="adresse">Adresse</label>
+									<input id="address" type="text" value="${member.getAddress()}" name="address">
+									<label for="address">Adresse</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="input-field col s6">
-									<input id="email" type="email" value="emailDuMembre" name="email">
-									<!-- TODO : remplacer emailDuMembre par l'email du membre -->
-									<label for="email">E-mail</label>
+									<input id="mail" type="text" value="${member.getMail()}" name="mail">
+									<label for="mail">E-mail</label>
 								</div>
 								<div class="input-field col s6">
-									<input id="telephone" type="tel" value="telephoneDuMembre" name="telephone">
-									<!-- TODO : remplacer telephoneDuMembre par le téléphone du membre -->
-									<label for="telephone">Téléphone</label>
+									<input id="phone" type="tel" value="${member.getPhone()}" name="phone">
+									<label for="phone">Téléphone</label>
 								</div>
 							</div>
 							<div class="row center">
@@ -78,9 +77,8 @@
 							</div>
 						</form>
 
-						<form action="/LibraryManager/membre_delete" method="get" class="col s12">
-							<input type="hidden" value="idDuMembre" name="id">
-							<!-- TODO : remplacer idDuMembre par l'id du membre -->
+						<form action="member_delete" method="get" class="col s12">
+							<input type="hidden" value="${member.getId()}" name="id">
 							<div class="row center">
 								<button class="btn waves-effect waves-light red" type="submit">Supprimer le membre
 									<i class="material-icons right">delete</i>
@@ -99,20 +97,22 @@
 									</tr>
 								</thead>
 								<tbody id="results">
-
-									<c:forEach var="emprunt" items="${emprunts}">
+									<c:forEach items="${borrows}" var="item">
 										<tr>
-											<td>Prénom et nom du membre emprunteur</td>
-											<td>Date de l'emprunt</td>
 											<td>
-												<a href="emprunt_return?id=idDeLEmprunt">
+												<c:out value="${item.getMember().getFirstName()}" />
+												<c:out value="${item.getMember().getLastName()}" />
+											</td>
+											<td>
+												<c:out value="${item.getStartBorrow()}" />
+											</td>
+											<td>
+												<a href="borrow_return?id=${item.getId()}">
 													<ion-icon class="table-item" name="log-in">
 												</a>
 											</td>
 										</tr>
 									</c:forEach>
-
-									<!-- TODO : parcourir la liste des emprunts en cours pour ce membre et les afficher selon la structure d'exemple ci-dessus -->
 								</tbody>
 							</table>
 						</div>

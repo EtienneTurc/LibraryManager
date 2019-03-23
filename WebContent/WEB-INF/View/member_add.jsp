@@ -25,23 +25,42 @@
 			</div>
 			<div class="row">
 				<div class="container">
-					<h5>Suppression du membre n°312</h5> <!-- TODO : remplacer 312 par l'id du membre -->
+					<h5>Création d'un nouveau membre</h5>
 					<div class="row">
-						<p>Êtes-vous sûr de vouloir supprimer la fiche de prenomDuMembre nomDuMembre ?</p>
-						<!-- TODO : remplacer prenomDuMembre et nomDuMembre par les valeurs correspondantes -->
-						<form action="/LibraryManager/membre_delete" method="post" class="col s12">
-							<input type="hidden" value="idDuMembre" name="id">
-							<!-- TODO : remplacer idDuMembre par l'id du membre -->
+						<form action="member_add" method="post" class="col s12">
+							<div class="row">
+								<div class="input-field col s6">
+									<input id="last_name" type="text" name="last_name">
+									<label for="last_name">Nom</label>
+								</div>
+								<div class="input-field col s6">
+									<input id="first_name" type="text" name="first_name">
+									<label for="first_name">Prénom</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<input id="address" type="text" name="address">
+									<label for="address">Adresse</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6">
+									<input id="mail" type="mail" name="mail">
+									<label for="mail">E-mail</label>
+								</div>
+								<div class="input-field col s6">
+									<input id="phone" type="tel" name="phone">
+									<label for="phone">Téléphone</label>
+								</div>
+							</div>
 							<div class="row center">
-								<button class="btn waves-effect waves-light red" type="submit" name="action">Supprimer
-									<i class="material-icons right">delete</i>
-								</button>
-								<a class="btn waves-effect waves-light orange"
-									href="/LibraryManager/membre_details?id=idDuMembre">Annuler</a>
-								<!-- TODO : remplacer idDuMembre par l'id du membre -->
+								<button class="btn waves-effect waves-light" type="submit">Enregistrer</button>
+								<button class="btn waves-effect waves-light orange" type="reset">Annuler</button>
 							</div>
 						</form>
 					</div>
+
 				</div>
 			</div>
 		</section>
