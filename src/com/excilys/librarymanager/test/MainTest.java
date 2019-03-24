@@ -23,6 +23,7 @@ public class MainTest {
 	public static void main(String[] args) {
 		JUnitCore runner = new JUnitCore();
 		runner.addListener(new TextListener(System.out));
+
 		System.out.println("------------ Model Test ------------");
 		System.out.println("Book Model");
 		runner.run(BookModelTest.class);
