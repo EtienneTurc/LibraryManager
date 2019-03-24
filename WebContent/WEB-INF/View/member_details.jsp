@@ -100,8 +100,10 @@
 									<c:forEach items="${borrows}" var="item">
 										<tr>
 											<td>
-												<c:out value="${item.getMember().getFirstName()}" />
-												<c:out value="${item.getMember().getLastName()}" />
+												<c:out value="${item.getBook().getTitle()}" />,
+												<i>
+													<c:out value="${item.getBook().getAuthor()}" />
+												</i>
 											</td>
 											<td>
 												<c:out value="${item.getStartBorrow()}" />

@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.BookServiceImpl;
 import com.excilys.librarymanager.services.MemberServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
@@ -20,7 +22,7 @@ public class BorrowAddServlet extends HttpServlet {
 	public BorrowAddServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/borrow_add.jsp");
 
 		try {
@@ -30,12 +32,14 @@ public class BorrowAddServlet extends HttpServlet {
 			request.setAttribute("books_available", book_service.getBooksAvailable());
 			request.setAttribute("members_available", member_service.getListMemberBorrowAvailable());
 			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			BorrowServiceImpl borrow_service = BorrowServiceImpl.getInstance();
 			String id_book = request.getParameter("idBook");
@@ -43,6 +47,8 @@ public class BorrowAddServlet extends HttpServlet {
 			borrow_service.create(Integer.parseInt(id_member), Integer.parseInt(id_book), LocalDate.now());
 			response.sendRedirect("borrow_list");
 
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

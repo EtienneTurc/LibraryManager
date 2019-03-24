@@ -3,6 +3,8 @@ package com.excilys.librarymanager.servlet;
 import javax.servlet.http.*;
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.BookServiceImpl;
 import com.excilys.librarymanager.services.MemberServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
@@ -17,7 +19,7 @@ public class DashboardServlet extends HttpServlet {
 	public DashboardServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/dashboard.jsp");
 
 		try {
@@ -30,6 +32,8 @@ public class DashboardServlet extends HttpServlet {
 			request.setAttribute("borrow_count", borrow_service.count());
 			request.setAttribute("current_borrows", borrow_service.getListCurrent());
 			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

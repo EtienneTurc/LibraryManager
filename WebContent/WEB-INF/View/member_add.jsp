@@ -46,7 +46,7 @@
 							</div>
 							<div class="row">
 								<div class="input-field col s6">
-									<input id="mail" type="mail" name="mail">
+									<input id="mail" type="text" name="mail">
 									<label for="mail">E-mail</label>
 								</div>
 								<div class="input-field col s6">

@@ -3,12 +3,16 @@ package com.excilys.librarymanager.servlet;
 import javax.servlet.http.*;
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.MemberServiceImpl;
 
 /**
  * MemberAddServlet
  */
 public class MemberAddServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 5958869800810032791L;
 
 	public MemberAddServlet() {
 	}
@@ -23,7 +27,7 @@ public class MemberAddServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 
@@ -37,6 +41,8 @@ public class MemberAddServlet extends HttpServlet {
 
 			response.sendRedirect("member_details?id=" + id);
 
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -24,6 +24,7 @@ import com.excilys.librarymanager.models.Book;
  */
 public class BorrowDaoImpl implements BorrowDao, Serializable {
 
+	private static final long serialVersionUID = -2447131050549585563L;
 	private static BorrowDaoImpl instance;
 
 	private BorrowDaoImpl() {

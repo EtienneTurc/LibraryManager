@@ -4,6 +4,8 @@ import javax.servlet.http.*;
 
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.MemberServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
 import com.excilys.librarymanager.models.Member;
@@ -13,10 +15,12 @@ import com.excilys.librarymanager.models.Member;
  */
 public class MemberDetailsServlet extends HttpServlet {
 
+	private static final long serialVersionUID = -7064993961085035232L;
+
 	public MemberDetailsServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/member_details.jsp");
 
 		try {
@@ -34,7 +38,7 @@ public class MemberDetailsServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 
@@ -50,6 +54,8 @@ public class MemberDetailsServlet extends HttpServlet {
 			member_service.update(m);
 
 			doGet(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

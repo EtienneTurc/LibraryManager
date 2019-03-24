@@ -27,7 +27,9 @@
 				<div class="col l4 s6">
 					<div class="small-box bg-aqua">
 						<div class="inner">
-							<h3><%= request.getAttribute("member_count") %></h3>
+							<h3>
+								<c:out value="${member_count}" />
+							</h3>
 							<p>Membres</p>
 						</div>
 						<div class="icon">
@@ -40,7 +42,9 @@
 				<div class="col l4 s6">
 					<div class="small-box bg-green">
 						<div class="inner">
-							<h3><%= request.getAttribute("book_count") %></h3>
+							<h3>
+								<c:out value="${book_count}" />
+							</h3>
 							<p>Livres</p>
 						</div>
 						<div class="icon">
@@ -53,7 +57,9 @@
 				<div class="col l4 s6">
 					<div class="small-box bg-yellow">
 						<div class="inner">
-							<h3><%= request.getAttribute("borrow_count") %></h3>
+							<h3>
+								<c:out value="${borrow_count}" />
+							</h3>
 							<p>Emprunts</p>
 						</div>
 						<div class="icon">

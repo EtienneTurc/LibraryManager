@@ -4,6 +4,8 @@ import javax.servlet.http.*;
 
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.BookServiceImpl;
 import com.excilys.librarymanager.services.BorrowServiceImpl;
 import com.excilys.librarymanager.models.Book;
@@ -18,7 +20,7 @@ public class BookDetailsServlet extends HttpServlet {
 	public BookDetailsServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/book_details.jsp");
 
 		try {
@@ -30,12 +32,14 @@ public class BookDetailsServlet extends HttpServlet {
 			request.setAttribute("borrows", borrow_service.getListCurrentByBook(Integer.parseInt(id)));
 
 			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 
@@ -48,6 +52,8 @@ public class BookDetailsServlet extends HttpServlet {
 			book_service.update(b);
 
 			doGet(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

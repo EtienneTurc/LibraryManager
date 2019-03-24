@@ -4,6 +4,8 @@ import javax.servlet.http.*;
 
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
+
 import com.excilys.librarymanager.services.BorrowServiceImpl;
 
 /**
@@ -16,7 +18,7 @@ public class BorrowListServlet extends HttpServlet {
 	public BorrowListServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/borrow_list.jsp");
 
 		try {
@@ -31,6 +33,8 @@ public class BorrowListServlet extends HttpServlet {
 			}
 
 			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

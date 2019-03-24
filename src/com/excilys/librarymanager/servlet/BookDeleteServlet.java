@@ -4,6 +4,7 @@ import javax.servlet.http.*;
 
 import javax.servlet.*;
 
+import com.excilys.librarymanager.exception.ServiceException;
 import com.excilys.librarymanager.services.BookServiceImpl;
 
 /**
@@ -16,7 +17,7 @@ public class BookDeleteServlet extends HttpServlet {
 	public BookDeleteServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/View/book_delete.jsp");
 
 		try {
@@ -24,12 +25,14 @@ public class BookDeleteServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			request.setAttribute("book", book_service.getById(Integer.parseInt(id)));
 			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			BookServiceImpl book_service = BookServiceImpl.getInstance();
 			String id = request.getParameter("id");
@@ -37,6 +40,8 @@ public class BookDeleteServlet extends HttpServlet {
 
 			response.sendRedirect("book_list");
 
+		} catch (ServiceException e) {
+			throw new ServletException(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
