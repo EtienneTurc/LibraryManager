@@ -80,9 +80,13 @@ public class BorrowServiceImpl implements BorrowService, Serializable {
 
 	public void create(int idMember, int idBook, LocalDate startBorrow) throws ServiceException {
 		try {
-			if ((BookDaoImpl.getInstance().getById(idBook) == null)
-					|| (MemberDaoImpl.getInstance().getById(idMember) == null)) {
+			Member m = MemberDaoImpl.getInstance().getById(idMember);
+			if ((BookDaoImpl.getInstance().getById(idBook) == null) || (m == null)) {
 				throw new ServiceException("The book or the member is not in the database");
+			}
+			if (!isBorrowPossible(m)) {
+				throw new ServiceException(
+						m.getFirstName() + " " + m.getLastName() + " has reached the maximum limit of borrows");
 			}
 			BorrowDaoImpl borrow_dao = BorrowDaoImpl.getInstance();
 			borrow_dao.create(idMember, idBook, startBorrow);
