@@ -38,13 +38,16 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 	}
 
 	public List<Borrow> getAll() throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM Borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook ORDER BY endBorrow DESC;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllQuery);
+			preparedStatement = connection.prepareStatement(GetAllQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
@@ -64,17 +67,39 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public List<Borrow> getListCurrent() throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllCurrentQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook WHERE endBorrow IS NULL;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllCurrentQuery);
+			preparedStatement = connection.prepareStatement(GetAllCurrentQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
@@ -94,18 +119,40 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	}
 
 	public List<Borrow> getListCurrentByMember(int idMember) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllCurrentByMemberQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook WHERE endBorrow IS NULL AND member.id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllCurrentByMemberQuery);
+			preparedStatement = connection.prepareStatement(GetAllCurrentByMemberQuery);
 			preparedStatement.setInt(1, idMember);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
@@ -125,18 +172,40 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	}
 
 	public List<Borrow> getListCurrentByBook(int idBook) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllCurrentByBookQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook WHERE endBorrow IS NULL AND book.id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllCurrentByBookQuery);
+			preparedStatement = connection.prepareStatement(GetAllCurrentByBookQuery);
 			preparedStatement.setInt(1, idBook);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Borrow> res = new ArrayList<Borrow>();
 			while (rs.next()) {
@@ -156,18 +225,40 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	}
 
 	public Borrow getById(int id) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetQuery = "SELECT e.id AS id, idMember, lastName, firstName, address, mail, phone, subscription, idBook, title, author, isbn, startBorrow, endBorrow FROM borrow AS e INNER JOIN member ON member.id = e.idMember INNER JOIN book ON book.id = e.idBook WHERE e.id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetQuery);
+			preparedStatement = connection.prepareStatement(GetQuery);
 			preparedStatement.setInt(1, id);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				Book book = new Book(rs.getInt("idBook"), rs.getString("title"), rs.getString("author"),
 						rs.getString("isbn"));
@@ -185,26 +276,47 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			throw new DaoException("Not found");
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int create(int idMember, int idBook, LocalDate startBorrow) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CreateQuery = "INSERT INTO borrow(idMember, idBook, startBorrow, endBorrow) VALUES (?, ?, ?, NULL);";
-			PreparedStatement preparedStatement = connection.prepareStatement(CreateQuery,
-					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = connection.prepareStatement(CreateQuery, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, idMember);
 			preparedStatement.setInt(2, idBook);
 			preparedStatement.setDate(3, Date.valueOf(startBorrow));
 
 			preparedStatement.executeUpdate();
 
-			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			rs = preparedStatement.getGeneratedKeys();
 			int id = -1;
-			if (resultSet.next()) {
-				id = resultSet.getInt(1);
+			if (rs.next()) {
+				id = rs.getInt(1);
 			}
 
 			connection.commit();
@@ -212,15 +324,36 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return id;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public void update(Borrow borrow) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String UpdateQuery = "UPDATE Borrow SET idMember = ?, idBook = ?, startBorrow = ?, endBorrow = ? WHERE id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(UpdateQuery);
+			preparedStatement = connection.prepareStatement(UpdateQuery);
 			preparedStatement.setInt(1, borrow.getMember().getId());
 			preparedStatement.setInt(2, borrow.getBook().getId());
 			preparedStatement.setDate(3, Date.valueOf(borrow.getStartBorrow()));
@@ -232,18 +365,33 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			connection.commit();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int count() throws DaoException {
-
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CountQuery = "SELECT COUNT(id) AS count FROM borrow;";
-			PreparedStatement preparedStatement = connection.prepareStatement(CountQuery);
+			preparedStatement = connection.prepareStatement(CountQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				return rs.getInt("count");
@@ -252,6 +400,25 @@ public class BorrowDaoImpl implements BorrowDao, Serializable {
 			return 0;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 }

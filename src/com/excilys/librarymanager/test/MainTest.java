@@ -8,6 +8,8 @@ import com.excilys.librarymanager.test.models.MemberModelTest;
 import com.excilys.librarymanager.test.models.BorrowModelTest;
 
 import com.excilys.librarymanager.test.dao.BookDaoTest;
+import com.excilys.librarymanager.test.dao.MemberDaoTest;
+import com.excilys.librarymanager.test.dao.BorrowDaoTest;
 
 /**
  * main
@@ -22,5 +24,7 @@ public class MainTest {
 		runner.run(BorrowModelTest.class);
 
 		runner.run(BookDaoTest.class);
+		runner.run(MemberDaoTest.class);
+		runner.run(BorrowDaoTest.class);
 	}
 }

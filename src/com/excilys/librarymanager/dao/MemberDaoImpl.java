@@ -33,13 +33,16 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 	}
 
 	public List<Member> getAll() throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllQuery = "SELECT * FROM Member ORDER BY lastName, firstName;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllQuery);
+			preparedStatement = connection.prepareStatement(GetAllQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Member> res = new ArrayList<Member>();
 			while (rs.next()) {
@@ -50,18 +53,40 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public Member getById(int id) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetQuery = "SELECT * FROM Member WHERE id=?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetQuery);
+			preparedStatement = connection.prepareStatement(GetQuery);
 			preparedStatement.setInt(1, id);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				return new Member(rs.getInt("id"), rs.getString("lastName"), rs.getString("firstName"),
@@ -73,17 +98,38 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int create(String last_name, String first_name, String address, String mail, String phone)
 			throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CreateQuery = "INSERT INTO member(lastName, firstName, address, mail, phone, subscription) VALUES (?, ?, ?, ?, ?, ?);";
-			PreparedStatement preparedStatement = connection.prepareStatement(CreateQuery,
-					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = connection.prepareStatement(CreateQuery, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, last_name);
 			preparedStatement.setString(2, first_name);
 			preparedStatement.setString(3, address);
@@ -93,10 +139,10 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 
 			preparedStatement.executeUpdate();
 
-			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			rs = preparedStatement.getGeneratedKeys();
 			int id = -1;
-			if (resultSet.next()) {
-				id = resultSet.getInt(1);
+			if (rs.next()) {
+				id = rs.getInt(1);
 			}
 
 			connection.commit();
@@ -104,15 +150,36 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			return id;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public void update(Member member) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String UpdateQuery = "UPDATE member SET lastName = ?, firstName = ?, address = ?, mail = ?, phone = ?, subscription = ? WHERE id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(UpdateQuery);
+			preparedStatement = connection.prepareStatement(UpdateQuery);
 			preparedStatement.setString(1, member.getLastName());
 			preparedStatement.setString(2, member.getFirstName());
 			preparedStatement.setString(3, member.getAddress());
@@ -126,15 +193,30 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			connection.commit();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public void delete(int id) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String DeleteQuery = "DELETE FROM member WHERE id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(DeleteQuery);
+			preparedStatement = connection.prepareStatement(DeleteQuery);
 			preparedStatement.setInt(1, id);
 
 			preparedStatement.executeUpdate();
@@ -142,18 +224,33 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			connection.commit();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int count() throws DaoException {
-
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CountQuery = "SELECT COUNT(id) AS count FROM member;";
-			PreparedStatement preparedStatement = connection.prepareStatement(CountQuery);
+			preparedStatement = connection.prepareStatement(CountQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				return rs.getInt("count");
@@ -162,6 +259,25 @@ public class MemberDaoImpl implements MemberDao, Serializable {
 			return 0;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 }
