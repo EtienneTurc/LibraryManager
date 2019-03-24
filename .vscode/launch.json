@@ -2,10 +2,10 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "CodeLens (Launch) - BookTest",
+			"name": "CodeLens (Launch) - MainTest",
 			"request": "launch",
-			"mainClass": "com.excilys.librarymanager.test.services.BookTest",
+			"mainClass": "com.excilys.librarymanager.test.MainTest",
 			"projectName": "ProjetEnsta"
-		}
+		},
 	]
 }

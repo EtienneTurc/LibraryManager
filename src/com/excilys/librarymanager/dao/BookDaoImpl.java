@@ -33,13 +33,16 @@ public class BookDaoImpl implements BookDao, Serializable {
 	}
 
 	public List<Book> getAll() throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetAllQuery = "SELECT * FROM BOOK;";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetAllQuery);
+			preparedStatement = connection.prepareStatement(GetAllQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			List<Book> res = new ArrayList<Book>();
 			while (rs.next()) {
@@ -48,18 +51,40 @@ public class BookDaoImpl implements BookDao, Serializable {
 			return res;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public Book getById(int id) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String GetQuery = "SELECT * FROM BOOK WHERE id=(?);";
-			PreparedStatement preparedStatement = connection.prepareStatement(GetQuery);
+			preparedStatement = connection.prepareStatement(GetQuery);
 			preparedStatement.setInt(1, id);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			Book b;
 			if (rs.next()) {
 				b = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("isbn"));
@@ -69,26 +94,47 @@ public class BookDaoImpl implements BookDao, Serializable {
 			throw new DaoException("Not found");
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int create(String title, String author, String isbn) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CreateQuery = "INSERT INTO book(title, author, isbn) VALUES (?, ?, ?);";
-			PreparedStatement preparedStatement = connection.prepareStatement(CreateQuery,
-					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = connection.prepareStatement(CreateQuery, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, title);
 			preparedStatement.setString(2, author);
 			preparedStatement.setString(3, isbn);
 
 			preparedStatement.executeUpdate();
 
-			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			rs = preparedStatement.getGeneratedKeys();
 			int id = -1;
-			if (resultSet.next()) {
-				id = resultSet.getInt(1);
+			if (rs.next()) {
+				id = rs.getInt(1);
 			}
 
 			connection.commit();
@@ -96,15 +142,36 @@ public class BookDaoImpl implements BookDao, Serializable {
 			return id;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public void update(Book book) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String UpdateQuery = "UPDATE book SET title = ?, author = ?, isbn = ? WHERE id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(UpdateQuery);
+			preparedStatement = connection.prepareStatement(UpdateQuery);
 			preparedStatement.setString(1, book.getTitle());
 			preparedStatement.setString(2, book.getAuthor());
 			preparedStatement.setString(3, book.getIsbn());
@@ -115,15 +182,30 @@ public class BookDaoImpl implements BookDao, Serializable {
 			connection.commit();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public void delete(int id) throws DaoException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String DeleteQuery = "DELETE FROM book WHERE id = ?;";
-			PreparedStatement preparedStatement = connection.prepareStatement(DeleteQuery);
+			preparedStatement = connection.prepareStatement(DeleteQuery);
 			preparedStatement.setInt(1, id);
 
 			preparedStatement.executeUpdate();
@@ -131,18 +213,33 @@ public class BookDaoImpl implements BookDao, Serializable {
 			connection.commit();
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 
 	public int count() throws DaoException {
-
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ConnectionManager.getConnection();
+			connection = ConnectionManager.getConnection();
 
 			String CountQuery = "SELECT COUNT(id) AS count FROM book;";
-			PreparedStatement preparedStatement = connection.prepareStatement(CountQuery);
+			preparedStatement = connection.prepareStatement(CountQuery);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				return rs.getInt("count");
@@ -151,6 +248,25 @@ public class BookDaoImpl implements BookDao, Serializable {
 
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 	};
 }

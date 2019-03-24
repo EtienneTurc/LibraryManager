@@ -14,10 +14,15 @@ import com.excilys.librarymanager.persistence.ConnectionManager;
 public class FillDatabase {
 
 	public static void main(String[] args) throws Exception {
+		fillDatabase();
+		System.out.println("finished");
+	}
+
+	public static void fillDatabase() throws Exception {
 		try {
+
 			DeleteDbFiles.execute("~", "libraryManagerDatabase", true);
 			insertWithPreparedStatement();
-			System.out.println("finished");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +41,7 @@ public class FillDatabase {
 				"CREATE TABLE IF NOT EXISTS borrow(id INT primary key auto_increment, idMember INT, idBook INT, startBorrow DATETIME, endBorrow DATETIME)");
 
 		try {
-			connection.setAutoCommit(false);
+			connection.setAutoCommit(true);
 
 			for (String createQuery : createTablesQueries) {
 				createPreparedStatement = connection.prepareStatement(createQuery);
